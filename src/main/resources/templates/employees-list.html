@@ -21,7 +21,7 @@
     <hr>
 
     <!-- Add a button -->
-    <a th:href="@{/}"
+    <a th:href="@{//}"
        class="btn btn-primary btn-sm mb-3">
         Add Employee
     </a>
@@ -40,38 +40,36 @@
         <tbody>
         <tr th:each="employee : ${employees}">
 
+            <!--            NAME-->
             <td th:text="${employee.name}"/>
+            <!--            EMAIL-->
             <td th:text="${employee.email}"/>
-            <!--				<td th:text="${employee.password}" />	-->
 
             <td>
                 <div class="row">
 
+                    <!--                    UPDATE -->
                     <div class="col-small">
                         <!-- Add "update" button/link -->
-                        <form action="#" th:action="@{/employees/}" method="POST">
+                        <form action="#" th:action="@{//}" method="POST">
                             <input type="hidden" name="employeeId" th:value="${employee.id}"/>
                             <button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Update</button>
                         </form>
                     </div>
 
+                    <!--                    DELETE-->
                     <div class="col-small">
+                        <!--                        th:action="@{|/${employee.id}|}-->
+                        <form action="#" th:object="${employee}" th:action="@{//}" method="DELETE">
 
-                        <!--                        <form action="#" th:object="${employee}"-->
-                        <!--                              th:action="@{|/${employee.id}|}" method="POST">-->
-                        <form action="#" th:object="${employee}"
-                              th:action="@{/employees/}" method="DELETE">
-                            <!-- <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}"></a>-->
-                            <input type="hidden" name="id"
-                                   th:value="${employee.id}"/>
+                            <input type="hidden" name="id" th:value="${employee.id}"/>
                             <button type="submit" class="btn btn-danger btn-sm"
                                     onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
                                 Delete
                             </button>
+
                         </form>
 
-                        <!--                        TODO path does not exist -->
-                        <!--                        <a th:href="@{/employees/{id}(id=${employee.id})}" class="btn btn-danger btn-sm">Delete</a>-->
                     </div>
                 </div>
             </td>
