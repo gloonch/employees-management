@@ -37,6 +37,19 @@ public class EmployeesService {
         return Long.valueOf(-1);
     }
 
-//    update
+    //    update
+    public EmployeesModel update(EmployeesModel employeesModel) {
+        Optional<EmployeesModel> optionalEmployees = employeesRepository.findById(employeesModel.getId());
+        if (optionalEmployees.isPresent()) {
+            EmployeesModel model = optionalEmployees.get();
+            model.setId(employeesModel.getId());
+            model.setName(employeesModel.getName());
+            model.setEmail(employeesModel.getEmail());
+            model.setPassword(employeesModel.getPassword());
+            return employeesRepository.save(model);
+        }
+        return null;
+    }
+
 
 }
