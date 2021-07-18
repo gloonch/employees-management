@@ -5,10 +5,7 @@ import com.thirdmonth.employeemanagement.modules.service.EmployeesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class EmployeesController {
         return employeesService.all();
     }
 
-    //    POST /  ** do i need this? **
+    //    POST /  TODO ** do i really need this? **
     //    registers a model object
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public EmployeesModel save(EmployeesModel employeesModel) {
@@ -39,6 +36,7 @@ public class EmployeesController {
 
     //    DELETE /{id}
     //    deletes a object by its given id
+    //    TODO @RequestParam
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Long delete(@PathVariable Long id) {
         return employeesService.delete(id);

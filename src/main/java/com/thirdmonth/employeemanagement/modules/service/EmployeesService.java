@@ -28,7 +28,7 @@ public class EmployeesService {
         return employeesRepository.save(employeesModel);
     }
 
-    //    delete
+    //    delete (returns -1 in both ways, why?)
     public Long delete(Long id) {
         Optional<EmployeesModel> employeesModel = employeesRepository.findById(id);
         if (employeesModel.isPresent()) {
@@ -47,8 +47,9 @@ public class EmployeesService {
             model.setEmail(employeesModel.getEmail());
             model.setPassword(employeesModel.getPassword());
             return employeesRepository.save(model);
+        } else {
+            return null;
         }
-        return null;
     }
 
 
