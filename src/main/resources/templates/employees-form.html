@@ -20,28 +20,28 @@
 		<hr>
 		
 		<p class="h4 mb-4">Save Employee</p>
-
-		<form action="#" th:action="@{//}"
-						 th:object="${employees}" method="POST">
-
+	
+		<form action="#" th:action="@{/employees/form}"
+						 th:object="${employee}" method="POST">
+		
 			<!-- Add hidden form field to handle update -->
 			<input type="hidden" th:field="*{id}" />
-
+			
 			<input type="text" th:field="*{name}"
-					class="form-control mb-4 col-4" placeholder="Full Name">
+					class="form-control mb-4 col-4" placeholder="Name">
 
-			<input type="email" th:field="*{email}"
-					class="form-control mb-4 col-4" placeholder="Email Address">
+			<input type="text" th:field="*{email}"
+					class="form-control mb-4 col-4" placeholder="Email">
 
-			<input type="password" th:field="*{password}"
+			<input type="text" th:field="*{password}"
 					class="form-control mb-4 col-4" placeholder="Password">
-
+				
 			<button type="submit" class="btn btn-info col-2">Save</button>
-
+						
 		</form>
 	
 		<hr>
-		<a th:action="@{//}" th:href="@{//}">Back to Employees List</a>
+		<a th:href="@{/employees/}">Back to Employees List</a>
 		
 	</div>
 </body>

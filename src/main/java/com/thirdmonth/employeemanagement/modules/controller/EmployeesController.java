@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 //@RequestMapping("api/v1/employees")
 @RequestMapping("/employees")
 public class EmployeesController {
@@ -21,49 +21,51 @@ public class EmployeesController {
     }
 
     //    GET /
-    //    shows all data in a list
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<EmployeesModel> all() {
-        return employeesService.all();
+    public String all(Model model) {
+        model.addAttribute("employees", employeesService.all());
+        return "employees-list";
     }
 
-    //    POST /  TODO ** do i really need this? **
-    //    registers a model object
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public EmployeesModel save(EmployeesModel employeesModel) {
-        return employeesService.save(employeesModel);
-    }
+    //    GET /delete TODO try with <form>, not the <a>
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam("employee_id") Long id) {
 
-    //    DELETE /{id}
-    //    deletes a object by its given id
-    //    TODO @RequestParam
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public Long delete(@PathVariable Long id) {
-        return employeesService.delete(id);
+//        delete the employee
+        employeesService.delete(id);
+
+//        redirect to /employees/
+        return "redirect:/employees/";
     }
 
 
     //    GET /form
-    //    shows the empty form ready to be filled
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String getForm(Model model) {
         model.addAttribute("employee", new EmployeesModel());
-        return "";
+        return "employees-form";
     }
 
 
     //    POST /form
-    //    registers a new model object
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public EmployeesModel postForm(EmployeesModel employeesModel) {
-        return employeesService.save(employeesModel);
+    public String postForm(EmployeesModel employeesModel) {
+        employeesService.save(employeesModel);
+        return "redirect:/employees/";
     }
 
+
     //    PUT /form
-    //    updates a existing object
-    @RequestMapping(value = "/form", method = RequestMethod.PUT)
-    public EmployeesModel putForm(EmployeesModel employeesModel) {
-        return employeesService.update(employeesModel);
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String putForm(@RequestParam("employee_id") Long id, Model model) {
+//        get the emploee from the service
+        EmployeesModel employeesModel = employeesService.findById(id);
+
+//        set the employee as a model attribute to pre-populate the form
+        model.addAttribute("employee", employeesModel);
+
+//        send over to our form
+        return "employees-form";
     }
 
 }
