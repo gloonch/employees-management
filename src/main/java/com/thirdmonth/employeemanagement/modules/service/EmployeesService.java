@@ -53,7 +53,7 @@ public class EmployeesService {
     }
 
 
-    public EmployeesModel findById(Long id) {
+    public EmployeesModel getById(Long id) {
         return employeesRepository.getById(id);
     }
 

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 //@RequestMapping("api/v1/employees")
 @RequestMapping("/employees")
@@ -59,7 +57,7 @@ public class EmployeesController {
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String putForm(@RequestParam("employee_id") Long id, Model model) {
 //        get the emploee from the service
-        EmployeesModel employeesModel = employeesService.findById(id);
+        EmployeesModel employeesModel = employeesService.getById(id);
 
 //        set the employee as a model attribute to pre-populate the form
         model.addAttribute("employee", employeesModel);
